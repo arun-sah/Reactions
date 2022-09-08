@@ -33,7 +33,7 @@ class ReactionButtonTests: XCTestCase {
 
     XCTAssertNotNil(button)
     XCTAssertFalse(button.isSelected)
-    XCTAssertEqual(button.reaction, Reaction.facebook.like)
+    XCTAssertEqual(button.reaction, Reaction.facebook.haha)
     XCTAssertNotNil(button.config)
     XCTAssertNil(button.reactionSelector)
   }
@@ -51,7 +51,7 @@ class ReactionButtonTests: XCTestCase {
   func testSetReaction() {
     let button = ReactionButton()
 
-    XCTAssertEqual(button.reaction, Reaction.facebook.like)
+    XCTAssertEqual(button.reaction, Reaction.facebook.haha)
 
     button.reaction = Reaction.facebook.love
 
@@ -212,7 +212,7 @@ class ReactionButtonTests: XCTestCase {
     
     control.reactionSelector?.longPressAction(press)
 
-    control.reactionSelector?.reactions = [Reaction.facebook.like]
+    control.reactionSelector?.reactions = [Reaction.facebook.haha]
 
     control.reactionSelector?.longPressAction(press)
 

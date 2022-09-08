@@ -42,7 +42,7 @@ class ReactionSummaryTests: XCTestCase {
 
     XCTAssertEqual(summary.reactions.count, 6)
 
-    summary.reactions = [Reaction.facebook.like]
+    summary.reactions = [Reaction.facebook.haha]
 
     XCTAssertEqual(summary.reactions.count, 1)
   }

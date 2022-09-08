@@ -32,7 +32,7 @@ class ReactionTests: XCTestCase {
     let reactions = Reaction.facebook.all
 
     XCTAssertEqual(reactions.count, 6)
-    XCTAssertEqual(reactions, [Reaction.facebook.like, Reaction.facebook.love, Reaction.facebook.haha, Reaction.facebook.wow, Reaction.facebook.sad, Reaction.facebook.angry])
+    XCTAssertEqual(reactions, [Reaction.facebook.haha, Reaction.facebook.love, Reaction.facebook.haha, Reaction.facebook.wow, Reaction.facebook.sad, Reaction.facebook.angry])
   }
 
   func testReactionInit() {
@@ -47,13 +47,13 @@ class ReactionTests: XCTestCase {
   }
 
   func testReactionHash() {
-    let likeReaction = Reaction.facebook.like
+    let likeReaction = Reaction.facebook.haha
 
-    XCTAssertEqual(likeReaction.hashValue, Reaction.facebook.like.id.hashValue)
+    XCTAssertEqual(likeReaction.hashValue, Reaction.facebook.haha.id.hashValue)
   }
 
   func testReactionDescription() {
-    let likeReaction = Reaction.facebook.like
+    let likeReaction = Reaction.facebook.haha
 
     XCTAssertEqual(likeReaction.description, "<Reaction id=like title=Like>")
   }

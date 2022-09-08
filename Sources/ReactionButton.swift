@@ -95,7 +95,7 @@ public final class ReactionButton: UIReactionControl {
     old?.removeTarget(self, action: #selector(ReactionButton.reactionSelectorTouchedUpInsideAction), for: .touchUpInside)
     old?.removeTarget(self, action: #selector(ReactionButton.reactionSelectorTouchedUpOutsideAction), for: .touchUpOutside)
 
-    reaction = reactionSelector?.reactions.first ?? Reaction.facebook.like
+    reaction = reactionSelector?.reactions.first ?? Reaction.facebook.haha
 
     reactionSelector?.addTarget(self, action: #selector(ReactionButton.reactionSelectorTouchedUpInsideAction), for: .touchUpInside)
     reactionSelector?.addTarget(self, action: #selector(ReactionButton.reactionSelectorTouchedUpOutsideAction), for: .touchUpOutside)
