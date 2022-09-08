@@ -58,7 +58,7 @@ extension Reaction {
     }
 
     /// The list of standard facebook reactions in this order: `.like`, `.love`, `.haha`, `.wow`, `.sad`, `.angry`.
-    public static let all: [Reaction] = [facebook.love, facebook.haha, facebook.wow, facebook.sad, facebook.angry]
+    public static let all: [Reaction] = [facebook.wow, facebook.angry, facebook.love, facebook.sad, facebook.haha]
 
     // MARK: - Convenience Methods
 

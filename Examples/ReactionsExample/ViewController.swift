@@ -10,13 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
   @IBOutlet weak var reactionSelect: ReactionSelector!
-  @IBOutlet weak var reactionButton: ReactionButton! {
-    didSet {
-      reactionButton.config = ReactionButtonConfig() {
-        $0.alignment = .centerLeft
-      }
-    }
-  }
+  
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,8 +23,8 @@ class ViewController: UIViewController {
   @IBAction func reactionChangedAction(_ sender: AnyObject) {
     guard let reaction = reactionSelect.selectedReaction else { return }
 
-    reactionButton.reaction   = reaction
-    reactionButton.isSelected = false
+  //  reactionButton.reaction   = reaction
+   // reactionButton.isSelected = false
   }
 }
 
