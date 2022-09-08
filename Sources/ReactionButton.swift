@@ -63,6 +63,9 @@ public final class ReactionButton: UIReactionControl {
    
    The reaction `title` fills the button one, and the `alternativeIcon` is used to display the icon. If the `alternativeIcon` is nil, the `icon` is used instead.
    */
+    public var reaction = Reaction.facebook.haha {
+    didSet { update() }
+  }
 
   /**
    The attached selector that the button will use in order to choose a reaction.
