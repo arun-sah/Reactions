@@ -55,7 +55,7 @@ final class ReactionCellView: UITableViewCell {
 
   @IBAction func facebookButtonReactionTouchedUpAction(_ sender: AnyObject) {
     if facebookReactionButton.isSelected == false {
-      facebookReactionButton.reaction   = Reaction.facebook.like
+        facebookReactionButton.reaction   = Reaction.facebook.haha
     }
   }
 
