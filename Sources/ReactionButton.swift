@@ -36,13 +36,13 @@ import UIKit
 public final class ReactionButton: UIReactionControl {
   private let iconImageView: UIImageView = Components.reactionButton.facebookLikeIcon()
   private let titleLabel: UILabel        = Components.reactionButton.facebookLikeLabel()
-  private lazy var overlay: UIView       = UIView().build {
-    $0.clipsToBounds   = false
-    $0.backgroundColor = .clear
-    $0.alpha           = 0
-
+//  private lazy var overlay: UIView       = UIView().build {
+//    $0.clipsToBounds   = false
+//    $0.backgroundColor = .clear
+//    $0.alpha           = 0
+//
 //    $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ReactionButton.dismissReactionSelector)))
-  }
+//  }
 
   /**
    A Boolean value indicating whether the reaction button is in the selected state.
@@ -88,7 +88,7 @@ public final class ReactionButton: UIReactionControl {
 
   private func setupReactionSelect(old: ReactionSelector?) {
     if let selector = reactionSelector {
-      overlay.addSubview(selector)
+    //  overlay.addSubview(selector)
     }
 
     old?.removeFromSuperview()
@@ -224,17 +224,17 @@ public final class ReactionButton: UIReactionControl {
   @objc public func dismissReactionSelector() {
     reactionSelector?.feedback = nil
 
-    animateOverlay(alpha: 0, center: CGPoint(x: overlay.bounds.midX, y: overlay.bounds.midY))
+//    animateOverlay(alpha: 0, center: CGPoint(x: overlay.bounds.midX, y: overlay.bounds.midY))
   }
 
   private func displayReactionSelector(feedback: ReactionFeedback) {
     guard let selector = reactionSelector, let window = UIApplication.shared.keyWindow, selector.reactions.count > 1 else { return }
 
-    if overlay.superview == nil {
-      UIApplication.shared.keyWindow?.addSubview(overlay)
-    }
+//    if overlay.superview == nil {
+//      UIApplication.shared.keyWindow?.addSubview(overlay)
+//    }
 
-    overlay.frame = CGRect(x:0 , y: 0, width: window.bounds.width, height: window.bounds.height * 2)
+   // overlay.frame = CGRect(x:0 , y: 0, width: window.bounds.width, height: window.bounds.height * 2)
 
     let centerPoint = convert(CGPoint(x: bounds.midX, y: 0), to: nil)
     selector.frame  = selector.boundsToFit()
@@ -251,21 +251,21 @@ public final class ReactionButton: UIReactionControl {
     if selector.frame.origin.x - config.spacing < 0 {
       selector.center = CGPoint(x: selector.center.x - selector.frame.origin.x + config.spacing, y: centerPoint.y)
     }
-    else if selector.frame.origin.x + selector.frame.width + config.spacing > overlay.bounds.width {
-      selector.center = CGPoint(x: selector.center.x - (selector.frame.origin.x + selector.frame.width + config.spacing - overlay.bounds.width), y: centerPoint.y)
-    }
+//    else if selector.frame.origin.x + selector.frame.width + config.spacing > overlay.bounds.width {
+//      selector.center = CGPoint(x: selector.center.x - (selector.frame.origin.x + selector.frame.width + config.spacing - overlay.bounds.width), y: centerPoint.y)
+//    }
 
     selector.feedback = feedback
 
-    animateOverlay(alpha: 1, center: CGPoint(x: overlay.bounds.midX, y: overlay.bounds.midY - selector.bounds.height))
+   // animateOverlay(alpha: 1, center: CGPoint(x: overlay.bounds.midX, y: overlay.bounds.midY - selector.bounds.height))
   }
 
-  private func animateOverlay(alpha: CGFloat, center: CGPoint) {
-    UIView.animate(withDuration: 0.1) { [weak self] in
-      guard let overlay = self?.overlay else { return }
-      
-      overlay.alpha  = alpha
-      overlay.center = center
-    }
-  }
+//  private func animateOverlay(alpha: CGFloat, center: CGPoint) {
+//    UIView.animate(withDuration: 0.1) { [weak self] in
+//      guard let overlay = self?.overlay else { return }
+//
+//      overlay.alpha  = alpha
+//      overlay.center = center
+//    }
+//  }
 }
