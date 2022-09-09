@@ -41,7 +41,7 @@ public final class ReactionButton: UIReactionControl {
     $0.backgroundColor = .clear
     $0.alpha           = 0
 
-    $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ReactionButton.dismissReactionSelector)))
+//    $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ReactionButton.dismissReactionSelector)))
   }
 
   /**
