@@ -40,8 +40,8 @@ public final class ReactionButton: UIReactionControl {
     $0.clipsToBounds   = false
     $0.backgroundColor = .clear
     $0.alpha           = 0
-
-    $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ReactionButton.dismissReactionSelector)))
+      $0.isUserInteractionEnabled = false
+//    $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ReactionButton.dismissReactionSelector)))
   }
 
   /**
@@ -234,7 +234,7 @@ public final class ReactionButton: UIReactionControl {
       UIApplication.shared.keyWindow?.addSubview(overlay)
     }
 
-    overlay.frame = CGRect(x:0 , y: 200, width: window.bounds.width, height: window.bounds.height * 2)
+    overlay.frame = CGRect(x:0 , y: 0, width: window.bounds.width, height: window.bounds.height * 2)
 
     let centerPoint = convert(CGPoint(x: bounds.midX, y: 0), to: nil)
     selector.frame  = selector.boundsToFit()
