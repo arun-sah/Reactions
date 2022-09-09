@@ -35,13 +35,13 @@ import UIKit
  */
 public final class ReactionButton: UIReactionControl {
   private let iconImageView: UIImageView = Components.reactionButton.facebookLikeIcon()
-  private let titleLabel: UILabel        = Components.reactionButton.facebookLikeLabel()
+//  private let titleLabel: UILabel        = Components.reactionButton.facebookLikeLabel()
   private lazy var overlay: UIView       = UIView().build {
     $0.clipsToBounds   = false
     $0.backgroundColor = .clear
     $0.alpha           = 0
-      $0.isUserInteractionEnabled = false
-//    $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ReactionButton.dismissReactionSelector)))
+      $0.isUserInteractionEnabled = true
+    $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ReactionButton.dismissReactionSelector)))
   }
 
   /**
@@ -73,7 +73,11 @@ public final class ReactionButton: UIReactionControl {
    There are two ways to display the selector: calling the `presentReactionSelector` method or by doing a long press to the button.
    */
   public var reactionSelector: ReactionSelector? {
-    didSet { setupReactionSelect(old: oldValue) }
+    didSet {
+        
+        setupReactionSelect(old: oldValue)
+        
+    }
   }
 
   // MARK: - Building Object
@@ -88,15 +92,17 @@ public final class ReactionButton: UIReactionControl {
 
   private func setupReactionSelect(old: ReactionSelector?) {
     if let selector = reactionSelector {
+        selector.isUserInteractionEnabled = true
       overlay.addSubview(selector)
     }
 
     old?.removeFromSuperview()
+      old?.isUserInteractionEnabled = true
     old?.removeTarget(self, action: #selector(ReactionButton.reactionSelectorTouchedUpInsideAction), for: .touchUpInside)
     old?.removeTarget(self, action: #selector(ReactionButton.reactionSelectorTouchedUpOutsideAction), for: .touchUpOutside)
 
     reaction = reactionSelector?.reactions.first ?? Reaction.facebook.haha
-
+      
     reactionSelector?.addTarget(self, action: #selector(ReactionButton.reactionSelectorTouchedUpInsideAction), for: .touchUpInside)
     reactionSelector?.addTarget(self, action: #selector(ReactionButton.reactionSelectorTouchedUpOutsideAction), for: .touchUpOutside)
   }
@@ -105,37 +111,29 @@ public final class ReactionButton: UIReactionControl {
 
   override func update() {
     iconImageView.image = reaction.alternativeIcon ?? reaction.icon
-    titleLabel.font     = config.font
-    titleLabel.text     = reaction.title
+   
 
     let iconSize   = min(bounds.width - config.spacing, bounds.height) - config.iconMarging * 2
-    let titleSize  = titleLabel.sizeThatFits(CGSize(width: bounds.width - iconSize, height: bounds.height))
     var iconFrame  = CGRect(x: 0, y: (bounds.height - iconSize) / 2, width: iconSize, height: iconSize)
-    var titleFrame = CGRect(x: iconSize + config.spacing, y: 0, width: titleSize.width, height: bounds.height)
 
     if config.alignment == .right {
       iconFrame.origin.x  = bounds.width - iconSize
-      titleFrame.origin.x = bounds.width - iconSize - config.spacing - titleSize.width
     }
     else if config.alignment == .centerLeft || config.alignment == .centerRight {
-      let emptyWidth = bounds.width - iconFrame.width - titleLabel.bounds.width - config.spacing
+      let emptyWidth = bounds.width - iconFrame.width - config.spacing
 
       if config.alignment == .centerLeft {
         iconFrame.origin.x  = emptyWidth / 2
-        titleFrame.origin.x = emptyWidth / 2 + iconSize + config.spacing
       }
       else {
-        iconFrame.origin.x  = emptyWidth / 2 + titleSize.width + config.spacing
-        titleFrame.origin.x = emptyWidth / 2
+        iconFrame.origin.x  = emptyWidth / 2  + config.spacing
       }
     }
 
     iconImageView.frame = iconFrame
-    titleLabel.frame    = titleFrame
 
-    UIView.transition(with: titleLabel, duration: 0.15, options: .transitionCrossDissolve, animations: { [unowned self] in
+    UIView.transition(with: UIView(), duration: 0.15, options: .transitionCrossDissolve, animations: { [unowned self] in
       self.iconImageView.tintColor = self.isSelected ? self.reaction.color : self.config.neutralTintColor
-      self.titleLabel.textColor    = self.isSelected ? self.reaction.color : self.config.neutralTintColor
       }, completion: nil)
   }
 
@@ -230,11 +228,14 @@ public final class ReactionButton: UIReactionControl {
   private func displayReactionSelector(feedback: ReactionFeedback) {
     guard let selector = reactionSelector, let window = UIApplication.shared.keyWindow, selector.reactions.count > 1 else { return }
 
-    if overlay.superview == nil {
-      UIApplication.shared.keyWindow?.addSubview(overlay)
-    }
+   
 
-    overlay.frame = CGRect(x:0 , y: 0, width: window.bounds.width, height: window.bounds.height * 2)
+    overlay.frame = CGRect(x:0 , y:100, width: window.bounds.width, height: window.bounds.height - 200 )
+    //  overlay.frame.size = CGSize(width: window.frame.width, height: 200)
+      if overlay.superview == nil {
+          //self.addSubview(overlay)
+        UIApplication.shared.keyWindow?.addSubview(overlay)
+      }
 
     let centerPoint = convert(CGPoint(x: bounds.midX, y: 0), to: nil)
     selector.frame  = selector.boundsToFit()
